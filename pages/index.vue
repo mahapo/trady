@@ -1,7 +1,23 @@
 <template>
   <div>
     <h2>23</h2>
-    <button @click="createTimetable()">csds</button>
+    <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe }}</v-btn>
+    <v-table density="compact">
+      <thead>
+        <tr>
+          <th class="text-left">Sybol</th>
+          <th class="text-left">Start Time</th>
+          <th class="text-left">Countdown</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(trend, index) in trends" :key="index">
+          <td>{{ trend.symbol }}</td>
+          <td>{{ trend.start }}</td>
+          <td>{{ formatTimestamp(trend.lastCandel[0]) }}</td>
+        </tr>
+      </tbody>
+    </v-table>
     <v-table density="compact">
       <thead>
         <tr>
@@ -28,11 +44,17 @@ const {
   timeframeActive,
   createTimetable
 } = useTimeframes()
-const { checkTrend } = useTrend()
+const { checkTrend, trends } = useTrend()
 const formatCountdown = (countdown) => {
   const minutes = Math.floor((countdown / (1000 * 60)) % 60);
   const seconds = Math.floor((countdown / 1000) % 60);
   return `${minutes}m ${seconds}s`;
+};
+const formatTimestamp = (timestamp) => {
+  const date = new Date(timestamp);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
 };
 
 // Update countdowns every second
@@ -55,7 +77,7 @@ const onCountdownEnd = (time) => {
   console.log(`Countdown reached 0 for ${time.label} at ${time.start}`);
   // Add your function logic here
   try {
-    checkTrend(time.label)
+    //checkTrend(time.label)
   } catch (error) {
     console.log(error)
   }
