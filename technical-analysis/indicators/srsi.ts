@@ -5,7 +5,7 @@ export class IStochasticRSI {
   static name = "SRsi"
 
   static signal(candels: OHLCV[]){
-    const srsi = ISRsi.check(candels)
+    const srsi = IStochasticRSI.check(candels)
 
     if (
       srsi[0].k >= 95 &&

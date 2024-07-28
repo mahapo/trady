@@ -19,7 +19,7 @@ export function useTimeframes() {
     '1w': 7 * 24 * 60 * 60 * 1000,
     '1M': 30 * 24 * 60 * 60 * 1000
   };
-  const timeframeActive = ref(['5m', '15m', '30m', '1h', '4h', '6h'])
+  const timeframeActive = ref(['15m', '30m', '1h', '4h', '6h'])
 
   // // Fetch timeframes from exchange using ccxt
   // async function fetchTimeframes(exchangeId) {

@@ -28,7 +28,7 @@
     </v-sparkline>
 
     <v-card-actions>
-      <v-btn>
+      <v-btn :href="`https://www.binance.com/en/futures/${info.id}`" target="_blank">
         Trade
       </v-btn>
     </v-card-actions>

@@ -2,6 +2,11 @@
   <v-container class="h-full">
     <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe
       }}</v-btn>
+      <v-select
+        v-model="minSignals"
+        label="Min"
+        :items="[1,2,3]"
+        ></v-select>
     <v-table v-if="false" density="compact">
       <thead>
         <tr>
@@ -51,9 +56,11 @@ const {
 } = useTimeframes()
 const { checkTrend, trends } = useTrend()
 
+const minSignals = ref(3)
+
 const signals = computed(() =>
   Object.values(trends.value)
-    .filter((trend) => Math.abs(trend.signalTotal) >= 3)
+    .filter((trend) => Math.abs(trend.signalTotal) >= minSignals.value)
     .sort((a, b) => a.signalTotal - b.signalTotal)
 )
 
@@ -64,6 +71,12 @@ function checkTimeAndRunScript() {
 
   if (minutes % 15 === 0) {
     checkTrend("15m", true);
+  }
+  if (minutes % 30 === 0) {
+    checkTrend("30m", true);
+  }
+  if (minutes % 60 === 0) {
+    checkTrend("1h", true);
   }
 }
 
