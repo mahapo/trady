@@ -1,6 +1,7 @@
 <template>
   <v-container class="h-full">
-    <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe }}</v-btn>
+    <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe
+      }}</v-btn>
     <v-table v-if="false" density="compact">
       <thead>
         <tr>
@@ -17,7 +18,11 @@
         </tr>
       </tbody>
     </v-table>
-    <pre>{{ trends }}</pre>
+    <v-row justify="center">
+      <v-col v-for="(signal, i) in signals" :key="i" cols="12" md="4" sm="3">
+        <SignalCard :info="signal" />
+      </v-col>
+    </v-row>
     <v-table v-if="false" density="compact">
       <thead>
         <tr>
@@ -45,6 +50,14 @@ const {
   createTimetable
 } = useTimeframes()
 const { checkTrend, trends } = useTrend()
+
+const signals = computed(() =>
+  Object.values(trends.value)
+    .filter((trend) => Math.abs(trend.signalTotal) >= 2)
+    .sort((a, b) => a.signalTotal - b.signalTotal)
+)
+
+
 const formatCountdown = (countdown) => {
   const minutes = Math.floor((countdown / (1000 * 60)) % 60);
   const seconds = Math.floor((countdown / 1000) % 60);

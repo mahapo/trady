@@ -2,7 +2,7 @@ import { OHLCV } from 'ccxt'
 import { StochasticRSI } from 'technicalindicators'
 
 export class ISRsi {
-  name = "SRsi"
+  static name = "SRsi"
 
   static signal(candels: OHLCV[]){
     const srsi = ISRsi.check(candels)

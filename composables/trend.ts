@@ -14,7 +14,7 @@ export const useTrend = () => {
     const markets = await binance.loadMarkets()
     console.log(markets);
 
-    for (const market of Object.values(markets).slice(0,10)) {
+    for (const market of Object.values(markets).slice(0,200)) {
       let id = `${market.id}-${timeframe}`
 
       const candels = await binance.fetchOHLCV(market.symbol, timeframe, undefined, 50)
@@ -27,26 +27,15 @@ export const useTrend = () => {
         lastPrice,
         lastTime,
         indicators: {},
-        signalTotal: 0
+        signalTotal: 0,
+        closes: candels.map(c=>c[4])
       }
       
-      let signalTotal = 0
       for (const key in Indicators) {
         const signal = Indicators[key].signal(candels)
         trends.value[id]['indicators'][key] = signal
-        signalTotal = signal
+        trends.value[id]['signalTotal'] += signal
       }
-      trends.value[id]['signalTotal'] = signalTotal
-      // console.log(candels)
-      /* const trend = await intrend(candels)
-      trends.value.push({
-        timeframe,
-        ...trend,
-        timestamp: Math.round(trend.lastCandel[0]/1000),
-        symbol: market.symbol
-      })
-      const minSignal = 3
-      console.log(market, trend) */
     }
   }
   return {

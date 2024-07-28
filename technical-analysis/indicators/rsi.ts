@@ -2,7 +2,7 @@ import { OHLCV } from 'ccxt'
 import { RSI } from 'technicalindicators'
 
 export class IRsi {
-  name = "RSI"
+  static name = "RSI"
 
   static signal(candels: OHLCV[]){
     const rsi14 = IRsi.check(candels)

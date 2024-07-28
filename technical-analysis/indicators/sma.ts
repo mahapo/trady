@@ -2,11 +2,11 @@ import { OHLCV } from 'ccxt'
 import { SMA } from 'technicalindicators'
 
 export class ISma {
-  name = "RSma"
+  static name = "Sma"
   static signal(candels: OHLCV[]){
     const lastPrice = candels[0][4]
-    const sma5 = this.static check(candels, 5)
-    const sma10 = this.static check(candels, 10)
+    const sma5 = ISma.check(candels, 5)
+    const sma10 = ISma.check(candels, 10)
 
     if (sma5 < sma10 && sma10 > lastPrice) {
       return 1
@@ -27,12 +27,3 @@ export class ISma {
   }
 }
 
-export function sma(candels: OHLCV[], period = 20): number {
-  const close = candels.map(c => c[4])
-
-  const sma = SMA.calculate({
-    period,
-    values: close
-  })
-  return sma[sma.length - 1]
-}
