@@ -4,7 +4,7 @@ import { useLocalStorage } from '@vueuse/core'
 export const useTrend = () => {
   const trends = useLocalStorage('trends', {})
 
-  const checkTrend = async (timeframe: string) => {
+  const checkTrend = async (timeframe: string, skip = false) => {
     const ccxt = await import('ccxt')
     const binance = new ccxt.binanceusdm({
       options: { defaultType: 'future', adjustForTimeDifference: true },
@@ -18,10 +18,11 @@ export const useTrend = () => {
       let id = `${market.id}-${timeframe}`
 
       const candels = await binance.fetchOHLCV(market.symbol, timeframe, undefined, 50)
-      //candels.pop()
+      if(skip) candels.pop()
       const lastPrice = candels[candels.length - 1][4]
       const lastTime = candels[candels.length - 1][0]
       trends.value[id] = {
+        id: market.id,
         symbol: market.symbol,
         timeframe,
         lastPrice,

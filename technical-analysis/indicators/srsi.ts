@@ -1,7 +1,7 @@
 import { OHLCV } from 'ccxt'
 import { StochasticRSI } from 'technicalindicators'
 
-export class ISRsi {
+export class IStochasticRSI {
   static name = "SRsi"
 
   static signal(candels: OHLCV[]){

@@ -18,7 +18,7 @@
         </tr>
       </tbody>
     </v-table>
-    <v-row justify="center">
+    <v-row>
       <v-col v-for="(signal, i) in signals" :key="i" cols="12" md="4" sm="3">
         <SignalCard :info="signal" />
       </v-col>
@@ -53,9 +53,19 @@ const { checkTrend, trends } = useTrend()
 
 const signals = computed(() =>
   Object.values(trends.value)
-    .filter((trend) => Math.abs(trend.signalTotal) >= 2)
+    .filter((trend) => Math.abs(trend.signalTotal) >= 3)
     .sort((a, b) => a.signalTotal - b.signalTotal)
 )
+
+
+function checkTimeAndRunScript() {
+  const now = new Date();
+  const minutes = now.getMinutes();
+
+  if (minutes % 15 === 0) {
+    checkTrend("15m", true);
+  }
+}
 
 
 const formatCountdown = (countdown) => {
@@ -100,6 +110,12 @@ let intervalId;
 onMounted(() => {
   createTimetable(); // Create the timetable when the component mounts
   intervalId = setInterval(updateCountdowns, 1000); // Update countdowns every second
+
+  // Initial check
+  checkTimeAndRunScript();
+
+  // Check every minute
+  setInterval(checkTimeAndRunScript, 60000);
 });
 
 onUnmounted(() => {

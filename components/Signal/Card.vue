@@ -27,9 +27,9 @@
     >
     </v-sparkline>
 
-    <v-card-actions v-if="false">
+    <v-card-actions>
       <v-btn>
-        Button
+        Trade
       </v-btn>
     </v-card-actions>
   </v-card>
