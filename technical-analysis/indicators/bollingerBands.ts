@@ -4,9 +4,9 @@ import { BollingerBandsOutput } from 'technicalindicators/declarations/volatilit
 
 export class IBollingerBands {
   name = "BollingerBands"
-  signal(candels: OHLCV[]){
+  static signal(candels: OHLCV[]){
     const lastPrice = candels[0][4]
-    const bollingerBands = this.check(candels)
+    const bollingerBands = this.static check(candels)
 
     if (lastPrice <= bollingerBands.lower) {
       return 1

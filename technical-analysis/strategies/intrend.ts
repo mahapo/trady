@@ -1,7 +1,8 @@
-import { rsi, srsi, macd, bollingerBands, sma } from '../indicators'
-
+import * as Indicators from '../indicators'
 export async function intrend(candels) {
   const lastPrice = candels[0][4]
+  console.log(Indicators)
+  return 
   const indicator = {
     rsi14: rsi(candels, 8),
     // rvoi: rvoi(candels),

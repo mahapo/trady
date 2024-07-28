@@ -2,12 +2,12 @@ import * as takeRight from 'lodash/takeRight'
 
 export class IRVol {
   name = "RVOl"
-  signal(candels: OHLCV[]){
-    const rsi14 = this.check(candels)
+  static signal(candels: OHLCV[]){
+    const rsi14 = this.static check(candels)
     return 0
   }
   
-  check(candels: OHLCV[], period = 14): number {
+  static check(candels: OHLCV[], period = 14): number {
     const volumes = takeRight(candels, count).map(c => c[5])
     const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length
     const rvoi = volumes[volumes.length - 1] / average(volumes)

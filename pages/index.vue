@@ -1,7 +1,7 @@
 <template>
   <v-container class="h-full">
     <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe }}</v-btn>
-    <v-table density="compact">
+    <v-table v-if="false" density="compact">
       <thead>
         <tr>
           <th class="text-left">Symbol</th>
@@ -17,6 +17,7 @@
         </tr>
       </tbody>
     </v-table>
+    <pre>{{ trends }}</pre>
     <v-table v-if="false" density="compact">
       <thead>
         <tr>

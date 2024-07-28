@@ -4,8 +4,8 @@ import { MACDOutput } from 'technicalindicators/declarations/moving_averages/MAC
 
 export class IMacd {
   name = "Macd"
-  signal(candels: OHLCV[]){
-    const macd = this.check(candels)
+  static signal(candels: OHLCV[]){
+    const macd = this.static check(candels)
 
     if (macd.MACD > macd.signal) {
       return 1
@@ -15,7 +15,7 @@ export class IMacd {
     return 0
   }
   
-  check(candels: OHLCV[], period = 20): MACDOutput {
+  static check(candels: OHLCV[], period = 20): MACDOutput {
     const close = candels.map(c => c[4])
     const macdInput = {
       values: close,

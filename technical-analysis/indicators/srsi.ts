@@ -1,10 +1,11 @@
 import { OHLCV } from 'ccxt'
 import { StochasticRSI } from 'technicalindicators'
 
-export class ISma {
-  name = "RSma"
-  signal(candels: OHLCV[]){
-    const srsi = this.check(candels)
+export class ISRsi {
+  name = "SRsi"
+
+  static signal(candels: OHLCV[]){
+    const srsi = ISRsi.check(candels)
 
     if (
       srsi[0].k >= 95 &&
@@ -24,7 +25,7 @@ export class ISma {
     return 0
   }
   
-  check(candels: OHLCV[], lenght = 1): any[] {
+  static check(candels: OHLCV[], lenght = 1): any[] {
     const close = candels.map(c => c[4])
     const results = StochasticRSI.calculate({
       values: close,
@@ -36,17 +37,4 @@ export class ISma {
   
     return [results[results.length - 2], results[results.length - 1]]
   }
-}
-
-export function srsi(candels: OHLCV[], lenght = 1): any[] {
-  const close = candels.map(c => c[4])
-  const results = StochasticRSI.calculate({
-    values: close,
-    rsiPeriod: 14,
-    stochasticPeriod: 14,
-    kPeriod: 3,
-    dPeriod: 3
-  })
-
-  return [results[results.length - 2], results[results.length - 1]]
 }

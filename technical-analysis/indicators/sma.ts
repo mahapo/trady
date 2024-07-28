@@ -3,10 +3,10 @@ import { SMA } from 'technicalindicators'
 
 export class ISma {
   name = "RSma"
-  signal(candels: OHLCV[]){
+  static signal(candels: OHLCV[]){
     const lastPrice = candels[0][4]
-    const sma5 = this.check(candels, 5)
-    const sma10 = this.check(candels, 10)
+    const sma5 = this.static check(candels, 5)
+    const sma10 = this.static check(candels, 10)
 
     if (sma5 < sma10 && sma10 > lastPrice) {
       return 1
@@ -16,7 +16,7 @@ export class ISma {
     return 0
   }
   
-  check(candels: OHLCV[], period = 20): number {
+  static check(candels: OHLCV[], period = 20): number {
     const close = candels.map(c => c[4])
   
     const sma = SMA.calculate({
