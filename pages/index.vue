@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <h2>23</h2>
+  <v-container class="h-full">
     <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe }}</v-btn>
     <v-table density="compact">
       <thead>
         <tr>
-          <th class="text-left">Sybol</th>
+          <th class="text-left">Symbol</th>
           <th class="text-left">Start Time</th>
           <th class="text-left">Countdown</th>
         </tr>
@@ -13,12 +12,12 @@
       <tbody>
         <tr v-for="(trend, index) in trends" :key="index">
           <td>{{ trend.symbol }}</td>
-          <td>{{ trend.start }}</td>
+          <td>{{ trend.timeframe }}</td>
           <td>{{ formatTimestamp(trend.lastCandel[0]) }}</td>
         </tr>
       </tbody>
     </v-table>
-    <v-table density="compact">
+    <v-table v-if="false" density="compact">
       <thead>
         <tr>
           <th class="text-left">Label</th>
@@ -34,7 +33,7 @@
         </tr>
       </tbody>
     </v-table>
-  </div>
+  </v-container>
 </template>
 
 <script setup>
@@ -63,7 +62,7 @@ const updateCountdowns = () => {
   timetable.value = timetable.value.map(time => {
     const newCountdown = new Date(time.start).getTime() - now;
     if (newCountdown <= 0) {
-      onCountdownEnd(time);
+      //onCountdownEnd(time);
     }
     return {
       ...time,
