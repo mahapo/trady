@@ -37,7 +37,7 @@ const {
 } = useTimeframes()
 const { checkTrends, trends, clearTrends } = useTrend()
 
-const minSignals = ref(1)
+const minSignals = ref(2)
 
 const signals = computed(() =>
   Object.values(trends.value)

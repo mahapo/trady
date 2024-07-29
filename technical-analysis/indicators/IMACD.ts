@@ -2,8 +2,8 @@ import { OHLCV } from 'ccxt'
 import { MACD } from 'technicalindicators'
 import { SMA } from 'technicalindicators'
 
-export class IMacd {
-  static name = "Macd"
+export class IMACD {
+  static name = "MACD"
 
   static signal(candles: OHLCV[]){
     const macd = IMacd.check(candles)

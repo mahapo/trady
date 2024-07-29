@@ -1,7 +1,7 @@
 import { OHLCV } from 'ccxt'
 import { SMA } from 'technicalindicators'
 
-export class ISma {
+export class ISMA {
   static name = "Sma"
 
   static signal(candles: OHLCV[]): number {

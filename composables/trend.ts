@@ -16,18 +16,23 @@ export const useTrend = () => {
     console.log(timeframeActive.value, timeframe)
     timeframeActive.value[timeframe].loading = true
     timeframeActive.value[timeframe].lastChecked = +new Date()
-    const ccxt = await import('ccxt')
-    binance = new ccxt.binanceusdm({
-      options: { defaultType: 'future', adjustForTimeDifference: true },
-      enableRateLimit: false
-    })
-    await binance.loadMarketsHelper()
-    const markets = await binance.loadMarkets()
-    for (const market of Object.values(markets)) {
-      await checkTrend(timeframe, market, skip)
+    try {
+      const ccxt = await import('ccxt')
+      binance = new ccxt.binanceusdm({
+        options: { defaultType: 'future', adjustForTimeDifference: true },
+        enableRateLimit: false
+      })
+      await binance.loadMarketsHelper()
+      const markets = await binance.loadMarkets()
+      for (const market of Object.values(markets)) {
+        await checkTrend(timeframe, market, skip)
+      }
+    } catch (error) {
+      
+    } finally {
+      timeframeActive.value[timeframe].loading = false
+      timeframeActive.value[timeframe].lastChecked = +new Date()
     }
-    timeframeActive.value[timeframe].loading = false
-    timeframeActive.value[timeframe].lastChecked = +new Date()
   }
 
   const checkTrend = async (timeframe: string, market: object, skip = false) => {
