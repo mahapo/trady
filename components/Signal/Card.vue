@@ -3,7 +3,7 @@
     <v-card-item>
       <div>
         <v-card-title class="text-h6 mb-1">
-          {{ info.timeframe }} - {{ info.symbol.replace(':USDT', '') }}
+          {{ info.timeframe }} - {{ info.symbol.replace(':USDT', '') }} ({{ info.signalTotal }})
         </v-card-title>
         <v-card-subtitle>
           {{ info.lastPrice }} <small>({{ formatTimestamp(info.lastTime) }})</small>

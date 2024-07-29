@@ -39,7 +39,7 @@ export const useTrend = () => {
   }
 
   const checkTrend = async (timeframe: string, market: object, skip = false) => {
-    let id = `${market.id}-${timeframe}`
+    let id = `${market.id}-${timeframe}-${skip}`
 
     const candels = await binance.fetchOHLCV(market.symbol, timeframe, undefined, 50)
     if(skip) candels.pop()

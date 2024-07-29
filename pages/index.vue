@@ -1,9 +1,13 @@
 <template>
   <v-container class="h-full">
     <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" :loading="timeframe.loading"
-      @click="checkTrends(timeframe.timeframe)">{{ timeframe.timeframe
+      @click="checkTrends(timeframe.timeframe, skip)">{{ timeframe.timeframe
       }}</v-btn>
     <v-btn @click="clearTrends">Clear</v-btn>
+    <v-switch
+      v-model="skip"
+      :label="`Skip`"
+    ></v-switch>
     <v-select v-model="minSignals" label="Min" :items="[1, 2, 3, 4, 5, 6]"></v-select>
     <v-table v-if="false" density="compact">
       <thead>
@@ -38,11 +42,17 @@ const {
 const { checkTrends, trends, clearTrends } = useTrend()
 
 const minSignals = ref(4)
+const skip = ref(true)
 
 const signals = computed(() =>
   Object.values(trends.value)
     .filter((trend) => Math.abs(trend.signalTotal) >= minSignals.value)
-    .sort((a, b) => a.signalTotal - b.signalTotal)
+    .sort((a, b) => {
+      if (a.signalTotal === b.signalTotal) {
+        return b.lastTime - a.lastTime;
+      }
+      return a.signalTotal - b.signalTotal;
+    })
 )
 
 
