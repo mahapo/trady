@@ -1,16 +1,16 @@
 import { OHLCV } from 'ccxt'
 import { SMA } from 'technicalindicators'
 
-export class ISMA {
+export class ISMA{
   static name = "Sma"
 
   static signal(candles: OHLCV[]): number {
     const lastPrice = candles[0][4]
-    const sma5 = ISma.check(candles, 5)
-    const sma10 = ISma.check(candles, 10)
-    const sma20 = ISma.check(candles, 20)
+    const sma5 = ISMA.check(candles, 5)
+    const sma10 = ISMA.check(candles, 10)
+    const sma20 = ISMA.check(candles, 20)
     const volume = candles[0][5]
-    const volumeAverage = ISma.checkVolumeAverage(candles)
+    const volumeAverage = ISMA.checkVolumeAverage(candles)
 
     if (sma5 < sma10 && sma10 < sma20 && lastPrice > sma20 && volume > volumeAverage) {
       return 1

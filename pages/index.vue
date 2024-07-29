@@ -4,7 +4,7 @@
       @click="checkTrends(timeframe.timeframe)">{{ timeframe.timeframe
       }}</v-btn>
     <v-btn @click="clearTrends">Clear</v-btn>
-    <v-select v-model="minSignals" label="Min" :items="[1, 2, 3]"></v-select>
+    <v-select v-model="minSignals" label="Min" :items="[1, 2, 3, 4, 5, 6]"></v-select>
     <v-table v-if="false" density="compact">
       <thead>
         <tr>
@@ -22,7 +22,7 @@
       </tbody>
     </v-table>
     <v-row>
-      <v-col v-for="(signal, i) in signals" :key="i" cols="12" md="4" sm="3">
+      <v-col v-for="(signal, i) in signals" :key="i" cols="12" md="4" sm="6">
         <SignalCard :info="signal" />
       </v-col>
     </v-row>
@@ -37,7 +37,7 @@ const {
 } = useTimeframes()
 const { checkTrends, trends, clearTrends } = useTrend()
 
-const minSignals = ref(2)
+const minSignals = ref(4)
 
 const signals = computed(() =>
   Object.values(trends.value)

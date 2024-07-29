@@ -6,11 +6,11 @@ export class IMACD {
   static name = "MACD"
 
   static signal(candles: OHLCV[]){
-    const macd = IMacd.check(candles)
+    const macd = IMACD.check(candles)
     if(!macd) return 0
-    const trend = IMacd.checkTrend(candles)
+    const trend = IMACD.checkTrend(candles)
     const volume = candles[0][5]
-    const volumeAverage = IMacd.checkVolumeAverage(candles)
+    const volumeAverage = IMACD.checkVolumeAverage(candles)
 
     if (
       macd[macd.length- 1].MACD > macd[macd.length- 1].signal &&

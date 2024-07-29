@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   modules: [
-    '@vueuse/nuxt',
+    '@vueuse/nuxt'
   ],
   build: {
     transpile: ['vuetify'],

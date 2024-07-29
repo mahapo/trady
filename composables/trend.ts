@@ -1,5 +1,6 @@
 import * as Indicators from '@/technical-analysis/indicators'
 import { useLocalStorage } from '@vueuse/core'
+// import { useNotifier } from "vuetify-notifier";
 
 export const useTrend = () => {
   const trends = useLocalStorage('trends', {})
@@ -10,6 +11,7 @@ export const useTrend = () => {
   }
 
   const checkTrends = async (timeframe: string, skip = false) => {
+    // const notifier = useNotifier();
     const {
       timeframeActive
     } = useTimeframes()
@@ -20,15 +22,16 @@ export const useTrend = () => {
       const ccxt = await import('ccxt')
       binance = new ccxt.binanceusdm({
         options: { defaultType: 'future', adjustForTimeDifference: true },
-        enableRateLimit: false
+        enableRateLimit: true
       })
       await binance.loadMarketsHelper()
       const markets = await binance.loadMarkets()
       for (const market of Object.values(markets)) {
         await checkTrend(timeframe, market, skip)
       }
+      // notifier.toast({text: timeframe + " - " + Object.values(markets).length + "Markets checked", status: "success" });
     } catch (error) {
-      
+      console.log(error.message)
     } finally {
       timeframeActive.value[timeframe].loading = false
       timeframeActive.value[timeframe].lastChecked = +new Date()

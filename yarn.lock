@@ -5846,7 +5846,7 @@ vue-router@^4.4.0:
   dependencies:
     "@vue/devtools-api" "^6.5.1"
 
-vue@^3.4.32, vue@latest:
+vue@^3.4.21, vue@^3.4.32, vue@latest:
   version "3.4.34"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.4.34.tgz#19d9a82854d54c4506d1e2854c9c038ee430484a"
   integrity sha512-VZze05HWlA3ItreQ/ka7Sx7PoD0/3St8FEiSlSTVgb6l4hL+RjtP2/8g5WQBzZgyf8WG2f+g1bXzC7zggLhAJA==
@@ -5857,7 +5857,15 @@ vue@^3.4.32, vue@latest:
     "@vue/server-renderer" "3.4.34"
     "@vue/shared" "3.4.34"
 
-vuetify@^3.6.13:
+vuetify-notifier@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vuetify-notifier/-/vuetify-notifier-1.1.1.tgz#87e5b02747431db4eaf6c8166953a927df04f068"
+  integrity sha512-nRsyYGEnKuLbFI60hyuEh9LZncYKi3mys67QK4yCy5PigXVjaDMGe4E6q380VsAuvPHcdgKlnUprKlz7QfiMoA==
+  dependencies:
+    vue "^3.4.21"
+    vuetify "^3.5.17"
+
+vuetify@^3.5.17, vuetify@^3.6.13:
   version "3.6.13"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.6.13.tgz#e875b99e2a8874bb456eb10dbda6a8de7a144c90"
   integrity sha512-Gz7jxXAkmff2m6CM0EUWOo/72TM322/3I6aDna++k1nPOW1/hNx4td1MZG4u75fzdn3r+uIe0dbF7SWuhu6DWA==
