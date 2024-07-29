@@ -1,4 +1,5 @@
 // import ccxt from 'ccxt'
+import { useLocalStorage } from '@vueuse/core'
 
 export function useTimeframes() {
   const timetable = ref([])
@@ -19,7 +20,38 @@ export function useTimeframes() {
     '1w': 7 * 24 * 60 * 60 * 1000,
     '1M': 30 * 24 * 60 * 60 * 1000
   };
-  const timeframeActive = ref(['15m', '30m', '1h', '4h', '6h'])
+  const timeframeActive = useLocalStorage('timeframeActive',{
+    "15m": {
+      timeframe: '15m',
+      lastChecked: 0,
+      loading: false
+    },
+    "30m": {
+      timeframe: '30m',
+      lastChecked: 0,
+      loading: false
+    },
+    "1h": {
+      timeframe: '1h',
+      lastChecked: 0,
+      loading: false
+    },
+    "2h": {
+      timeframe: '2h',
+      lastChecked: 0,
+      loading: false
+    },
+    "4h": {
+      timeframe: '4h',
+      lastChecked: 0,
+      loading: false
+    },
+    "6h": {
+      timeframe: '6h',
+      lastChecked: 0,
+      loading: false
+    },
+  })
 
   // // Fetch timeframes from exchange using ccxt
   // async function fetchTimeframes(exchangeId) {
@@ -33,7 +65,7 @@ export function useTimeframes() {
   //   }
   // }
 
-  function createTimetable(amount = 10) {
+/*   function createTimetable(amount = 10) {
     const now = new Date();
     const newTimetable = [];
 
@@ -61,13 +93,12 @@ export function useTimeframes() {
     newTimetable.sort((a, b) => new Date(a.start) - new Date(b.start));
 
     timetable.value = newTimetable;
-  }
+  } */
 
   return {
     timetable,
     predefinedDurations,
-    timeframeActive,
-    createTimetable
+    timeframeActive
   }
 }
 

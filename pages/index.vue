@@ -1,12 +1,10 @@
 <template>
   <v-container class="h-full">
-    <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" @click="checkTrend(timeframe)">{{ timeframe
+    <v-btn v-for="(timeframe, index) in timeframeActive" :key="index" :loading="timeframe.loading"
+      @click="checkTrends(timeframe.timeframe)">{{ timeframe.timeframe
       }}</v-btn>
-      <v-select
-        v-model="minSignals"
-        label="Min"
-        :items="[1,2,3]"
-        ></v-select>
+    <v-btn @click="clearTrends">Clear</v-btn>
+    <v-select v-model="minSignals" label="Min" :items="[1, 2, 3]"></v-select>
     <v-table v-if="false" density="compact">
       <thead>
         <tr>
@@ -28,35 +26,18 @@
         <SignalCard :info="signal" />
       </v-col>
     </v-row>
-    <v-table v-if="false" density="compact">
-      <thead>
-        <tr>
-          <th class="text-left">Label</th>
-          <th class="text-left">Start Time</th>
-          <th class="text-left">Countdown</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(time, index) in timetable" :key="index">
-          <td>{{ time.label }}</td>
-          <td>{{ time.start }}</td>
-          <td>{{ formatCountdown(time.countdown) }}</td>
-        </tr>
-      </tbody>
-    </v-table>
+    <strong v-if="!signals.length">No signal found</strong>
   </v-container>
 </template>
 
 <script setup>
 const {
   timetable,
-  predefinedDurations,
-  timeframeActive,
-  createTimetable
+  timeframeActive
 } = useTimeframes()
-const { checkTrend, trends } = useTrend()
+const { checkTrends, trends, clearTrends } = useTrend()
 
-const minSignals = ref(3)
+const minSignals = ref(1)
 
 const signals = computed(() =>
   Object.values(trends.value)
@@ -70,13 +51,13 @@ function checkTimeAndRunScript() {
   const minutes = now.getMinutes();
 
   if (minutes % 15 === 0) {
-    checkTrend("15m", true);
+    checkTrends("15m", true);
   }
   if (minutes % 30 === 0) {
-    checkTrend("30m", true);
+    checkTrends("30m", true);
   }
   if (minutes % 60 === 0) {
-    checkTrend("1h", true);
+    checkTrends("1h", true);
   }
 }
 
@@ -113,7 +94,7 @@ const onCountdownEnd = (time) => {
   console.log(`Countdown reached 0 for ${time.label} at ${time.start}`);
   // Add your function logic here
   try {
-    //checkTrend(time.label)
+    //checkTrends(time.label)
   } catch (error) {
     console.log(error)
   }
@@ -121,7 +102,7 @@ const onCountdownEnd = (time) => {
 let intervalId;
 
 onMounted(() => {
-  createTimetable(); // Create the timetable when the component mounts
+  // createTimetable(); // Create the timetable when the component mounts
   intervalId = setInterval(updateCountdowns, 1000); // Update countdowns every second
 
   // Initial check

@@ -3,27 +3,32 @@ import { SMA } from 'technicalindicators'
 
 export class ISma {
   static name = "Sma"
-  static signal(candels: OHLCV[]){
-    const lastPrice = candels[0][4]
-    const sma5 = ISma.check(candels, 5)
-    const sma10 = ISma.check(candels, 10)
 
-    if (sma5 < sma10 && sma10 > lastPrice) {
+  static signal(candles: OHLCV[]): number {
+    const lastPrice = candles[0][4]
+    const sma5 = ISma.check(candles, 5)
+    const sma10 = ISma.check(candles, 10)
+    const sma20 = ISma.check(candles, 20)
+    const volume = candles[0][5]
+    const volumeAverage = ISma.checkVolumeAverage(candles)
+
+    if (sma5 < sma10 && sma10 < sma20 && lastPrice > sma20 && volume > volumeAverage) {
       return 1
-    } else if (sma5 > sma10 && sma10 < lastPrice) {
+    } else if (sma5 > sma10 && sma10 > sma20 && lastPrice < sma20 && volume > volumeAverage) {
       return -1
     }
     return 0
   }
   
-  static check(candels: OHLCV[], period = 20): number {
-    const close = candels.map(c => c[4])
-  
-    const sma = SMA.calculate({
-      period,
-      values: close
-    })
+  static check(candles: OHLCV[], period: number): number {
+    const close = candles.map(c => c[4])
+    const sma = SMA.calculate({ period, values: close })
+    return sma[sma.length - 1]
+  }
+
+  static checkVolumeAverage(candles: OHLCV[], period = 20): number {
+    const volume = candles.map(c => c[5])
+    const sma = SMA.calculate({ period, values: volume })
     return sma[sma.length - 1]
   }
 }
-
