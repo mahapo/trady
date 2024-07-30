@@ -87,7 +87,7 @@ export const useTrend = () => {
 
 
       
-      const markets = await fetchAndFilterMarkets(4)
+      const markets = await fetchAndFilterMarkets(3)
       console.log(markets)
       const promises = markets.map(m=>fetchMarketData(m, timeframe));
       const results = await Promise.all(promises);
