@@ -48,10 +48,10 @@ const signals = computed(() =>
   Object.values(trends.value)
     .filter((trend) => Math.abs(trend.signalTotal) >= minSignals.value)
     .sort((a, b) => {
-      if (a.signalTotal === b.signalTotal) {
+      if (Math.abs(a.signalTotal) === Math.abs(b.signalTotal)) {
         return b.lastTime - a.lastTime;
       }
-      return a.signalTotal - b.signalTotal;
+      return Math.abs(a.signalTotal) - Math.abs(b.signalTotal);
     })
 )
 
