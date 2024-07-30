@@ -16,20 +16,20 @@ export class IStochasticRSI {
       srsi[0].k >= 95 &&
       srsi[0].d >= 95 &&
       srsi[0].d <= srsi[0].k &&
-      srsi[1].d > srsi[1].k &&
-      volume > volumeAverage &&
-      lastPrice < sma50 &&
-      divergence === "bearish"
+      srsi[1].d > srsi[1].k
+      // volume > volumeAverage &&
+      // lastPrice < sma50 &&
+      // divergence === "bearish"
     ) {
       return -1
     } else if (
       srsi[0].k <= 5 &&
       srsi[0].d <= 5 &&
       srsi[0].d >= srsi[0].k &&
-      srsi[1].d < srsi[1].k &&
-      volume > volumeAverage &&
-      lastPrice > sma50 &&
-      divergence === "bullish"
+      srsi[1].d < srsi[1].k
+      // volume > volumeAverage &&
+      // lastPrice > sma50 &&
+      // divergence === "bullish"
     ) {
       return 1
     }

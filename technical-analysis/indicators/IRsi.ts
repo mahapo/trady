@@ -11,9 +11,14 @@ export class IRsi {
     const macd = IRsi.checkMacd(candles)
     const divergence = IRsi.checkDivergence(candles)
 
-    if (rsi14 < 30 && volume > volumeAverage && macd === "bullish" && divergence === "bullish") {
+    // if (rsi14 < 30 && volume > volumeAverage && macd === "bullish" && divergence === "bullish") {
+    //   return 1
+    // } else if (rsi14 > 70 && volume > volumeAverage && macd === "bearish" && divergence === "bearish") {
+    //   return -1
+    // }
+    if (rsi14 < 30 && divergence === "bullish") {
       return 1
-    } else if (rsi14 > 70 && volume > volumeAverage && macd === "bearish" && divergence === "bearish") {
+    } else if (rsi14 > 70 && divergence === "bearish") {
       return -1
     }
     return 0
